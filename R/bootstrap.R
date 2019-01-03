@@ -1,4 +1,5 @@
 #' @include utils.R
+#' @include validateArguments.R
 NULL
 
 #' Create a Bootstrap page
@@ -462,12 +463,22 @@ wellPanel <- function(...) {
 #'   numericInput("obs", "Observations:", 10)
 #' )
 #' @export
-sidebarPanel <- function(..., width = 4) {
-  div(class=paste0("col-sm-", width),
-    tags$form(class="well",
-      ...
-    )
-  )
+sidebarPanel <- function(..., width = 4, asList = FALSE) {
+  args = list(...)
+  newArgs = list()
+  if(asList){
+    if (length(args)>1)
+      stop("Argument must be a single list")
+    if (!is.list(...))
+      stop("Argument must be a list")
+    div(class=paste0("col-sm-", width),
+        do.call(tags$form, args = c(class="well", ...)))
+  } else {
+    div(class=paste0("col-sm-", width),
+      tags$form(class="well",
+        ...
+      )
+  )}
 }
 
 #' Create a main panel
@@ -488,11 +499,21 @@ sidebarPanel <- function(..., width = 4) {
 #'    plotOutput("mpgPlot")
 #' )
 #' @export
-mainPanel <- function(..., width = 8) {
+mainPanel <- function(..., width = 8, asList = FALSE) {
+  args = list(...)
+  if(asList){
+    if (length(args)>1)
+      stop("Argument must be a single list")
+    if (!is.list(...))
+      stop("Argument must be a list")
+    do.call(div, args = c(class = paste0("col-sm-", width), ...))
+  } else {
   div(class=paste0("col-sm-", width),
     ...
   )
+  }
 }
+
 
 #' Conditional Panel
 #'

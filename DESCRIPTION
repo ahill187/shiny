@@ -1,7 +1,7 @@
 Package: shiny
 Type: Package
 Title: Web Application Framework for R
-Version: 1.2.0.9000
+Version: 100.0
 Authors@R: c(
     person("Winston", "Chang", role = c("aut", "cre"), email = "winston@rstudio.com"),
     person("Joe", "Cheng", role = "aut", email = "joe@rstudio.com"),
@@ -160,4 +160,5 @@ Collate:
     'test-export.R'
     'timer.R'
     'update-input.R'
+    'validateArguments.R'
 RoxygenNote: 6.1.0
